@@ -16,7 +16,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:setAdapter="@{viewModel.getAdapter()}"
             android:id="@+id/rv_coins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

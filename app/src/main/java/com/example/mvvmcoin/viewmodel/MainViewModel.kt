@@ -6,17 +6,14 @@ import com.example.mvvmcoin.model.api.CoinApi
 import com.example.mvvmcoin.model.api.JobServices
 import com.example.mvvmcoin.model.datamodel.AdModel
 import com.example.mvvmcoin.model.datamodel.BaseModel
-import com.example.mvvmcoin.view.CoinAdapter
 import com.example.mvvmcoin.view.MainActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainViewModel(): BaseViewModel() {
-    private var adapter:CoinAdapter? = null
     var coins: MutableLiveData<List<BaseModel>>? = null
 
     fun init(binding: ActivityMainBinding, activity: MainActivity) {
-        adapter = CoinAdapter(mutableListOf(), activity, binding.rvCoins)
         setViewDataBinding(binding)
         getData()
     }
@@ -26,7 +23,6 @@ class MainViewModel(): BaseViewModel() {
         var newItems: ArrayList<BaseModel>
         val adModel = AdModel("url")
         coins = MutableLiveData()
-
         GlobalScope.launch {
             val response = coinsApi.getCoinList()
             newItems = response.body() as ArrayList<BaseModel>
@@ -37,14 +33,5 @@ class MainViewModel(): BaseViewModel() {
             }
             coins!!.postValue(newItems)
         }
-    }
-
-    fun getAdapter(): CoinAdapter? {
-        return adapter
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        adapter = null
     }
 }
